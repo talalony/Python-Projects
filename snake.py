@@ -138,12 +138,15 @@ def h(p1, p2):
     x2, y2 = p2
     return abs(x1 - x2) + abs(y1 - y2)
 
+
 def find(grid, s):
     for i in range(24):
         for j in range(24):
             if grid[i][j] == s:
                 return i, j
     return -1, -1
+
+
 # helper
 def reconstract_path(came_from, current):
     path = []
@@ -265,6 +268,8 @@ def isCollision(playerX, playerY, snackX, snackY):
 
 
 def move(path, x1, y1, x1_change, y1_change, end):
+    if path is False:
+        return
     s = Spot(x1 // snakeBlock, y1 // snakeBlock, 0, 0)
     path.insert(0, end)
     try:
@@ -291,8 +296,8 @@ def move(path, x1, y1, x1_change, y1_change, end):
 
 
 def survive(grid, x1, y1, x1_change, y1_change, snakeList, rows, width):
-    down = grid[rows-1][rows-1]
-    right = grid[rows-1][rows-1]
+    down = grid[rows - 1][rows - 1]
+    right = grid[rows - 1][rows - 1]
     left = grid[0][0]
     up = grid[0][0]
 
@@ -539,6 +544,7 @@ def main(win, width):
             Erow, Ecol = get_clicked_pos(Epos, rows, width)
             Espot = grid[Erow][Ecol]
             end = Espot
+            # end = Spot(-1, -1, 0, 0)
             end.make_end()
             lengthOfSnake += 1
             if lengthOfSnake <= 100:
